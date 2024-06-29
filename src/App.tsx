@@ -18,7 +18,7 @@ function App() {
             <Controllers />
           </div>
 
-          <MemoizedGrid />
+          <Grid />
         </div>
       </GridTypeContextProvider>
     </>
@@ -27,16 +27,16 @@ function App() {
 
 export default App;
 
-function MemoizedGrid() {
-  const GridContext = useContext(GridTypeContext);
-  if (!GridContext) {
-    throw new Error(
-      "useGridTypeContext must be used within a GridTypeContextProvider"
-    );
-  }
-  const { reducerGrid } = GridContext;
-  const memoizedGrid = useMemo(() => {
-    return <Grid />;
-  }, [reducerGrid]);
-  return memoizedGrid;
-}
+// function MemoizedGrid() {
+//   const GridContext = useContext(GridTypeContext);
+//   if (!GridContext) {
+//     throw new Error(
+//       "useGridTypeContext must be used within a GridTypeContextProvider"
+//     );
+//   }
+//   const { grid } = GridContext;
+//   const memoizedGrid = useMemo(() => {
+//     return <Grid />;
+//   }, [grid]);
+//   return memoizedGrid;
+// }

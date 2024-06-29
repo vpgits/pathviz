@@ -44,12 +44,12 @@ export default function Cell({
   if (!GridContext) {
     throw new Error("GridTypeContext must be used within a GridProvider");
   }
-  const { reducerGrid, setStartingCell, setEndingCell } = GridContext;
+  const { grid, setStartingCell, setEndingCell } = GridContext;
 
   const handleClick = () => {
     if (isObstacle) return;
-    if (reducerGrid.start != null && reducerGrid.end != null) return;
-    if (reducerGrid.start != null) {
+    if (grid.start != null && grid.end != null) return;
+    if (grid.start != null) {
       setEndingCell(row, col);
     } else {
       setStartingCell(row, col);

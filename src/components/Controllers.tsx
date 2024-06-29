@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
 import { GridTypeContext } from "../context/GridContext";
 import BFS from "../utils/helpers/bfs";
+import { GridType } from "../utils/types/types";
 
 export default function Controllers() {
   const GridContext = React.useContext(GridTypeContext);
   if (!GridContext) {
     throw new Error("GridTypeContext must be used within a GridProvider");
   }
-  const { reducerGrid, dispatch } = GridContext;
+  const { grid, setGrid, resetGrid, reRenderGrid } = GridContext;
   const [isStart, setIsStart] = React.useState(false);
   const [isEnd, setIsEnd] = React.useState(false);
   const [algorithm, setAlgorithm] = React.useState("bfs");
   useEffect(() => {
-    if (reducerGrid.start != null && reducerGrid.end != null) {
+    if (grid.start != null && grid.end != null) {
       setIsStart(true);
     }
   }, []);
@@ -21,21 +22,12 @@ export default function Controllers() {
       setIsStart(false);
     }
   }, [isEnd]);
-  const start = () => {
-    const newGrid = BFS(reducerGrid);
-    if (newGrid) {
-      setIsEnd(true);
-      dispatch({ type: "SET_GRID", payload: newGrid });
-    }
+  const start = async () => {
+    const result =  await BFS(grid, setGrid);
+    console.log(result)
   };
 
-  const reRenderGrid = () => {
-    dispatch({ type: "RE_RENDER" });
-  };
 
-  const resetGrid = () => {
-    dispatch({ type: "RESET_GRID" });
-  };
   return (
     <>
       <div className="flex items-center justify-center gap-x-2 my-2">
